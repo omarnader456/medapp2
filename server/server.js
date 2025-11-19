@@ -58,6 +58,8 @@ app.use(cors({
 // ROUTES
 app.get('/', (req, res) => res.send('API is running...'));
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/users', require('./routes/user'));
+app.use('/api/care-teams', require('./routes/careTeam'));
 
 // 6. START SERVER (The fix for "Clean Exit")
 const PORT = process.env.PORT || 5000;

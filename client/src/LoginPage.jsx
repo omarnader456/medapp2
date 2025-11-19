@@ -30,7 +30,7 @@ const LoginPage = () => {
         navigate('/verify-2fa', { state: { userId: res.data.userId } });
       } else {
         // If login is successful and no 2FA, redirect to home/dashboard
-        navigate('/');
+        navigate('/dashboard');
       }
     } catch (err) {
       setError(err.response?.data?.msg || 'An error occurred during login.');

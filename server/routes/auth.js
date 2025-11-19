@@ -50,4 +50,9 @@ router.post(
 // @access  Public
 router.get('/logout', authController.logout);
 
+// @route   GET api/auth/me
+// @desc    Get the logged-in user's profile
+// @access  Private
+router.get('/me', authMiddleware, authController.getMe);
+
 module.exports = router;

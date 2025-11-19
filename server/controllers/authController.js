@@ -41,8 +41,6 @@ try{
     if (err) throw err;
     res.cookie('token', token, {
       httpOnly: true,
-      // The expires time should match the token's expiration
-      expires: new Date(Date.now() + 360000 * 1000),
       // Use secure cookies in production
       secure: process.env.NODE_ENV === 'production'
     }).json({ success: true });
@@ -115,7 +113,6 @@ exports.login = async (req, res) => {
       if (err) throw err;
       res.cookie('token', token, {
         httpOnly: true,
-        expires: new Date(Date.now() + 360000 * 1000),
         secure: process.env.NODE_ENV === 'production'
       }).json({ success: true });
     });
@@ -156,7 +153,6 @@ exports.verifyTwoFactor = async (req, res) => {
       if (err) throw err;
       res.cookie('token', authToken, {
         httpOnly: true,
-        expires: new Date(Date.now() + 360000 * 1000),
         secure: process.env.NODE_ENV === 'production'
       }).json({ success: true });
     });
@@ -193,4 +189,19 @@ exports.logout = (req, res) => {
   // To log out, we simply clear the cookie containing the JWT
   res.clearCookie('token');
   res.status(200).json({ success: true, msg: 'Logged out successfully' });
+};
+
+/**
+ * @desc    Get current logged in user
+ * @route   GET /api/auth/me
+ * @access  Private
+ */
+exports.getMe = async (req, res) => {
+  try {
+    // req.user is set by the auth middleware
+    const user = await User.findById(req.user.id).select('-password');
+    res.status(200).json({ success: true, data: user });
+  } catch (err) {
+    res.status(500).json({ success: false, msg: 'Server Error' });
+  }
 };

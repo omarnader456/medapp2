@@ -24,7 +24,7 @@ const TwoFactorAuthPage = () => {
         { withCredentials: true }
       );
       // On successful verification, redirect to the main app page
-      navigate('/');
+      navigate('/dashboard');
     } catch (err) {
       setError(err.response?.data?.msg || 'Failed to verify 2FA token.');
     }
