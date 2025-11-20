@@ -1,0 +1,86 @@
+/* Add your styles for the DashboardPage component here */
+.dashboard-page-container {
+  padding: 20px;
+  text-align: center;
+  background-color:black;
+  color: floralwhite;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: underline;
+  text-align: center;
+  aspect-ratio: 16/9;
+  width:80%;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.dashboard-title {
+  font-size: 2em;
+  color:floralwhite;
+  margin-bottom: 20px;
+}
+
+.user-actions-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  width: 100%;
+  background-color: gold;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid black;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  text-decoration: underline;
+  text-align: center;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+.user-actions-nav:hover {
+  background-color:darkred;
+  color:lightblue; 
+  font-weight: bold;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  text-decoration: underline;
+}
+.admin-nav-section{
+      display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  width: 100%;
+  background-color: gold;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid black;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  text-decoration: underline;
+  text-align: center;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+.admin-nav-section:hover {
+  background-color:darkred;
+  color:lightblue; 
+  font-weight: bold;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  text-decoration: underline;
+}

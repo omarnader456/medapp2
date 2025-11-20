@@ -1,0 +1,11 @@
+/* Add your styles for the TwoFactorAuthPage component here */
+.two-fa-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.two-fa-title {
+  font-size: 1.8em;
+}

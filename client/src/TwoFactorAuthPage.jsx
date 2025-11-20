@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
+import './TwoFactorAuthPage.css';
 
 const TwoFactorAuthPage = () => {
   const [token, setToken] = useState('');
@@ -31,13 +32,14 @@ const TwoFactorAuthPage = () => {
   };
 
   return (
-    <div>
-      <h1>Enter 2FA Code</h1>
-      <p>Enter the code from your authenticator app.</p>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={onSubmit}>
-        <div>
+    <div className="two-fa-page-container">
+      <h1 className="two-fa-title">Enter 2FA Code</h1>
+      <p className="two-fa-subtitle">Enter the code from your authenticator app.</p>
+      {error && <p className="two-fa-error-message" style={{ color: 'red' }}>{error}</p>}
+      <form className="two-fa-form" onSubmit={onSubmit}>
+        <div id="2fa-input-group">
           <input
+            id="2fa-token-input"
             type="text"
             placeholder="6-digit code"
             value={token}
@@ -45,7 +47,7 @@ const TwoFactorAuthPage = () => {
             required
           />
         </div>
-        <input type="submit" value="Verify" />
+        <input className="two-fa-submit-button" type="submit" value="Verify" />
       </form>
     </div>
   );

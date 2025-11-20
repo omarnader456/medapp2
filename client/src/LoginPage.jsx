@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './LoginPage.css';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -38,12 +39,13 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={onSubmit}>
-        <div>
+    <div className="login-page-container">
+      <h1 className="login-title">Login</h1>
+      {error && <p className="login-error-message" style={{ color: 'red' }}>{error}</p>}
+      <form className="login-form" onSubmit={onSubmit}>
+        <div id="email-input-group">
           <input
+            id="email-input"
             type="email"
             placeholder="Email Address"
             name="email"
@@ -52,10 +54,18 @@ const LoginPage = () => {
             required
           />
         </div>
-        <div>
-          <input type="password" placeholder="Password" name="password" value={password} onChange={onChange} required />
+        <div id="password-input-group">
+          <input
+            id="password-input"
+            type="password"
+            placeholder="Password"
+            name="password"
+            value={password}
+            onChange={onChange}
+            required
+          />
         </div>
-        <input type="submit" value="Login" />
+        <input className="login-submit-button" type="submit" value="Login" />
       </form>
     </div>
   );
