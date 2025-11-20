@@ -29,13 +29,20 @@ const connectDB = async () => {
 // Execute connection
 connectDB();
 
+// 5. CORS (Allow frontend to communicate)
+// This MUST come before other middleware and routes
+app.use(cors({
+  origin: ['http://localhost:3000', 'http://localhost:5173'], 
+  credentials: true
+}));
+
 // 1. SECURITY HEADERS
 app.use(helmet());
 
 // 2. RATE LIMITING
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000, // 10 minutes
-  max: 100 // Limit each IP
+  max: 1000 // Increased limit for development
 });
 app.use('/api', limiter);
 
@@ -47,19 +54,16 @@ app.use(cookieParser());
 app.use(mongoSanitize());
 app.use(xss());
 
-
-// 5. CORS (Allow frontend to communicate)
-// UPDATED: Added localhost:5173 for Vite support
-app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:5173'], 
-  credentials: true
-}));
-
 // ROUTES
 app.get('/', (req, res) => res.send('API is running...'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/users', require('./routes/user'));
 app.use('/api/care-teams', require('./routes/careTeam'));
+app.use('/api/medications', require('./routes/medication'));
+// Add this line in server.js under the other app.use() statements for routes
+app.use('/api/prescriptions', require('./routes/prescription'));
+app.use('/api/diagnoses', require('./routes/diagnosis'));
+
 
 // 6. START SERVER (The fix for "Clean Exit")
 const PORT = process.env.PORT || 5000;

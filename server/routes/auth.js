@@ -5,12 +5,15 @@ const { check } = require('express-validator');
 // Import Controller and Middleware
 const authController = require('../controllers/authController');
 const authMiddleware = require('../middleware/auth');
+const authorize = require('../middleware/authorize');
 
 // @route   POST api/auth/register
 // @desc    Register a new user
 // @access  Public
 router.post(
   '/register',
+  authMiddleware, // 1. Check if a user is logged in
+  authorize('admin'), // 2. Check if the logged-in user is an admin
   [
     check('name', 'Name is required').not().isEmpty(),
     check('email', 'Please include a valid email').isEmail(),
@@ -18,6 +21,7 @@ router.post(
   ],
   authController.register
 );
+
 
 // @route   POST api/auth/login
 // @desc    Login user (password check)
@@ -54,5 +58,15 @@ router.get('/logout', authController.logout);
 // @desc    Get the logged-in user's profile
 // @access  Private
 router.get('/me', authMiddleware, authController.getMe);
+
+// @route   PUT api/auth/updatedetails
+// @desc    Update the logged-in user's details
+// @access  Private
+router.put('/updatedetails', authMiddleware, authController.updateMyDetails);
+
+// @route   PUT api/auth/updatepassword
+// @desc    Update the logged-in user's password
+// @access  Private
+router.put('/updatepassword', authMiddleware, authController.updatePassword);
 
 module.exports = router;

@@ -16,6 +16,9 @@ const {
 // Accessible by any logged-in user
 router.get('/my-assignments', authMiddleware, getMyAssignments);
 
+// Route for doctors/nurses to get their assigned patients
+router.get('/my-patients', [authMiddleware, authorize('doctor', 'nurse')], require('../controllers/careTeamController').getMyPatients);
+
 // Admin-only routes
 router
   .route('/')

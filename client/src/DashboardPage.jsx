@@ -41,16 +41,27 @@ const DashboardPage = () => {
         </div>
       )}
 
+      {/* Link for all users to update their own profile */}
+      <nav>
+        <Link to="/update-profile">Update My Profile</Link>
+      </nav>
+
       {/* Role-specific navigation */}
       {user && user.role === 'admin' && (
         <nav>
+          <Link to="/admin/register">Create New User</Link> |{' '}
           <Link to="/admin/users">View All Users</Link> |{' '}
-          <Link to="/admin/assignments">View All Assignments</Link>
+          <Link to="/admin/assignments">View All Assignments</Link> |{' '}
+          <Link to="/admin/create-care-team">Create Care Team</Link> |{' '}
+          <Link to="/admin/medications">Manage Medications</Link>
         </nav>
       )}
       {user && ['doctor', 'nurse', 'patient'].includes(user.role) && (
         <nav>
-          <Link to="/my-assignments">View My Assignments</Link>
+          <Link to="/my-assignments">View My Care Team</Link>
+          {user.role === 'patient' && <span> | <Link to="/my-prescriptions">View My Prescriptions</Link> | <Link to="/my-diagnoses">View My Diagnoses</Link></span>}
+          {user.role === 'doctor' && <span> | <Link to="/doctor/my-patients">Manage Patient Prescriptions</Link></span>}
+          {user.role === 'nurse' && <span> | <Link to="/doctor/my-patients">View Patient Prescriptions</Link></span>}
         </nav>
       )}
     </div>

@@ -121,3 +121,23 @@ exports.deleteAssignment = async (req, res) => {
     res.status(500).json({ success: false, msg: 'Server Error' });
   }
 };
+
+/**
+ * @desc    Get all patients assigned to the logged-in doctor or nurse
+ * @route   GET /api/care-teams/my-patients
+ * @access  Private (Doctor, Nurse)
+ */
+exports.getMyPatients = async (req, res) => {
+  try {
+    const careTeams = await CareTeam.find({
+      $or: [{ doctor: req.user.id }, { nurse: req.user.id }],
+    }).populate('patient', 'name email'); // Populate with patient details
+
+    // Extract just the patient data from the care teams
+    const patients = careTeams.map(team => team.patient);
+
+    res.status(200).json({ success: true, count: patients.length, data: patients });
+  } catch (err) {
+    res.status(500).json({ success: false, msg: 'Server Error' });
+  }
+};

@@ -205,3 +205,57 @@ exports.getMe = async (req, res) => {
     res.status(500).json({ success: false, msg: 'Server Error' });
   }
 };
+
+/**
+ * @desc    Update user details for logged-in user
+ * @route   PUT /api/auth/updatedetails
+ * @access  Private
+ */
+exports.updateMyDetails = async (req, res) => {
+  try {
+    // Fields to update
+    const fieldsToUpdate = {
+      name: req.body.name,
+      email: req.body.email,
+    };
+
+    // Find user and update. We explicitly do NOT allow 'role' to be updated here.
+    const user = await User.findByIdAndUpdate(req.user.id, fieldsToUpdate, {
+      new: true,
+      runValidators: true,
+    });
+
+    res.status(200).json({ success: true, data: user });
+  } catch (err) {
+    res.status(400).json({ success: false, msg: err.message });
+  }
+};
+
+/**
+ * @desc    Update user password
+ * @route   PUT /api/auth/updatepassword
+ * @access  Private
+ */
+exports.updatePassword = async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+
+    // 1. Get user from DB and explicitly select the password field
+    const user = await User.findById(req.user.id).select('+password');
+
+    // 2. Check if the provided current password is correct
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ msg: 'Incorrect current password' });
+    }
+
+    // 3. Hash the new password and save it
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(newPassword, salt);
+    await user.save();
+
+    res.status(200).json({ success: true, msg: 'Password updated successfully' });
+  } catch (err) {
+    res.status(400).json({ success: false, msg: err.message });
+  }
+};

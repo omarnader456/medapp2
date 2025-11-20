@@ -4,11 +4,16 @@ const router = express.Router();
 // Import middleware and controllers
 const authMiddleware = require('../middleware/auth');
 const authorize = require('../middleware/authorize');
-const { getAllUsers } = require('../controllers/userController');
+const { getAllUsers, getUserById, updateUser } = require('../controllers/userController');
 
-// @route   GET /api/users
-// @desc    Get all users
-// @access  Private (Admin only)
-router.get('/', [authMiddleware, authorize('admin')], getAllUsers);
+// Admin-only routes
+router
+  .route('/')
+  .get([authMiddleware, authorize('admin')], getAllUsers);
+
+router
+  .route('/:id')
+  .get([authMiddleware, authorize('admin')], getUserById)
+  .put([authMiddleware, authorize('admin')], updateUser);
 
 module.exports = router;
