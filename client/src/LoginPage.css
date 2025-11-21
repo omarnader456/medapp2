@@ -1,32 +1,31 @@
-.login-page-container{
+    
+    .login-page-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     height: 100vh;
     font-size: calc(10px + 2vmin);
-    color: white;
-    background-color: black;
-    text-align: center;
-    aspect-ratio: 16/9;
-    width:80%;
-    margin: 0 auto;
+    color: black; 
+    background-color: white; 
     overflow: hidden;
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 20px;
 }
 
 .login-title {
+    background-color: black;
+    color: white; 
+    width: 100%; 
+    padding: 20px 0; 
     font-size: 24px;
     margin-bottom: 20px;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
-    color: white;
-    font-weight: bold;
     font-style: italic;
     font-variant: small-caps;
-    text-decoration: underline;
-    
 }
 
+.login-form-container {
+    width: 80%;
+    margin: 20px auto 0;
+    text-align: center;
+}

@@ -2,7 +2,6 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
 
-// Import page components
 import HomePage from './HomePage.jsx';
 import LoginPage from './LoginPage.jsx';
 import TwoFactorAuthPage from './TwoFactorAuthPage.jsx';
@@ -28,24 +27,24 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        {/* Public Routes - HomePage is now the entry point */}
+        {}
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/verify-2fa" element={<TwoFactorAuthPage />} />
 
-        {/* Protected Routes */}
+        {}
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/update-profile" element={<UpdateProfilePage />} />
         <Route path="/my-assignments" element={<MyAssignmentsPage />} />
         <Route path="/my-prescriptions" element={<PatientPrescriptionsPage />} />
         <Route path="/my-diagnoses" element={<PatientDiagnosesPage />} />
 
-        {/* Doctor Routes */}
+        {}
         <Route path="/doctor/my-patients" element={<DoctorPatientsPage />} />
         <Route path="/prescriptions/:patientId" element={<ManagePrescriptionsPage />} />
         <Route path="/diagnoses/:patientId" element={<DoctorManageDiagnosesPage />} />
 
-        {/* Admin-Only Protected Routes */}
+        {}
         <Route element={<AdminRoute />}>
           <Route path="/admin/register" element={<RegistrationPage />} />
           <Route path="/admin/users" element={<AdminUsersPage />} />

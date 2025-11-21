@@ -17,7 +17,6 @@ const DashboardPage = () => {
         });
         setUser(res.data.data);
       } catch (err) {
-        // If fetching user fails, they are not logged in
         navigate('/login');
       } finally {
         setLoading(false);
@@ -42,12 +41,12 @@ const DashboardPage = () => {
         </div>
       )}
 
-      {/* Link for all users to update their own profile */}
+      {}
       <nav className="user-actions-nav">
         <Link className="update-profile-link" to="/update-profile">Update My Profile</Link>
       </nav>
 
-      {/* Role-specific navigation */}
+      {}
       {user && user.role === 'admin' && (
         <nav className="admin-nav-section">
           <Link className="admin-register-link" to="/admin/register">Create New User</Link> |{' '}

@@ -4,20 +4,16 @@ const path = require('path');
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 
-// Load env vars
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
-// Connect to DB
 mongoose.connect(process.env.MONGO_URI);
 
-// --- Define Users to Add ---
 const usersToSeed = [
   {
     name: 'Omar Nader',
     email: 'omansour101@outlook.com',
     password: 'AdminAccount123@',
     role: 'admin',
-    // Enable 2FA for this user for testing
     twoFactorEnabled: true,
   },
   {
@@ -43,12 +39,9 @@ const usersToSeed = [
   },
 ];
 
-// --- Script Functions ---
 
-// Import data into DB
 const importData = async () => {
   try {
-    // Hash passwords before creating users
     const processedUsers = await Promise.all(
       usersToSeed.map(async (user) => {
         const salt = await bcrypt.genSalt(10);
@@ -66,7 +59,6 @@ const importData = async () => {
   }
 };
 
-// Delete data from DB
 const deleteData = async () => {
   try {
     await User.deleteMany();

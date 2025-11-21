@@ -10,7 +10,7 @@ const DoctorManageDiagnosesPage = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [editingId, setEditingId] = useState(null); // ID of the diagnosis being edited
+  const [editingId, setEditingId] = useState(null); 
   const [editFormData, setEditFormData] = useState({ title: '', description: '' });
 
   const fetchDiagnoses = async () => {
@@ -44,8 +44,8 @@ const DoctorManageDiagnosesPage = () => {
     setError('');
     try {
       await axios.post('http://localhost:5000/api/diagnoses', { ...formData, patientId }, { withCredentials: true });
-      setFormData({ title: '', description: '' }); // Clear form
-      fetchDiagnoses(); // Refresh list
+      setFormData({ title: '', description: '' }); 
+      fetchDiagnoses(); 
     } catch (err) {
       setError(err.response?.data?.msg || 'Failed to add diagnosis.');
     }
@@ -55,7 +55,7 @@ const DoctorManageDiagnosesPage = () => {
     if (window.confirm('Are you sure you want to delete this diagnosis?')) {
       try {
         await axios.delete(`http://localhost:5000/api/diagnoses/${id}`, { withCredentials: true });
-        fetchDiagnoses(); // Refresh list
+        fetchDiagnoses(); 
       } catch (err) {
         setError('Failed to delete diagnosis.');
       }
@@ -79,7 +79,7 @@ const DoctorManageDiagnosesPage = () => {
     try {
       await axios.put(`http://localhost:5000/api/diagnoses/${editingId}`, editFormData, { withCredentials: true });
       setEditingId(null);
-      fetchDiagnoses(); // Refresh list
+      fetchDiagnoses(); 
     } catch (err) {
       setError(err.response?.data?.msg || 'Failed to update diagnosis.');
     }
@@ -93,7 +93,7 @@ const DoctorManageDiagnosesPage = () => {
       <h1>Manage Patient Diagnoses</h1>
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      {/* Form for doctor to add a new diagnosis */}
+      {}
       <form onSubmit={onSubmit} style={{ marginBottom: '20px', border: '1px solid #ccc', padding: '10px' }}>
         <h3>Add New Diagnosis</h3>
         <div>
@@ -105,14 +105,13 @@ const DoctorManageDiagnosesPage = () => {
         <button type="submit">Add Diagnosis</button>
       </form>
 
-      {/* List of existing diagnoses */}
+      {}
       <h2>Existing Diagnoses</h2>
       {diagnoses.length === 0 ? (
         <p>This patient has no diagnoses on record.</p>
       ) : (
         diagnoses.map(diag =>
           editingId === diag._id ? (
-            // EDITING VIEW
             <form key={diag._id} onSubmit={onEditSubmit} style={{ border: '2px solid blue', margin: '10px', padding: '10px' }}>
               <h3>Editing Diagnosis</h3>
               <input name="title" value={editFormData.title} onChange={onEditChange} />
@@ -121,13 +120,12 @@ const DoctorManageDiagnosesPage = () => {
               <button type="button" onClick={handleCancelEdit}>Cancel</button>
             </form>
           ) : (
-            // DISPLAY VIEW
             <div key={diag._id} style={{ border: '1px solid #ccc', margin: '10px', padding: '10px' }}>
               <h3>{diag.title}</h3>
               <p><strong>Diagnosed by:</strong> Dr. {diag.doctor.name}</p>
               <p><strong>Date:</strong> {new Date(diag.date).toLocaleDateString()}</p>
               <p>{diag.description}</p>
-              {/* Only show edit/delete buttons if the logged-in doctor is the one who created the diagnosis */}
+              {}
               {currentUser && currentUser._id === diag.doctor._id && (
                 <div>
                   <button onClick={() => handleEditClick(diag)}>Edit</button>

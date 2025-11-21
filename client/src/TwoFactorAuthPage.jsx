@@ -8,7 +8,7 @@ const TwoFactorAuthPage = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
-  const { userId } = location.state || {}; // Get userId from the login page
+  const { userId } = location.state || {}; 
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +24,6 @@ const TwoFactorAuthPage = () => {
         { userId, token },
         { withCredentials: true }
       );
-      // On successful verification, redirect to the main app page
       navigate('/dashboard');
     } catch (err) {
       setError(err.response?.data?.msg || 'Failed to verify 2FA token.');

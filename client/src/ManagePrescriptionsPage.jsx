@@ -15,15 +15,12 @@ const ManagePrescriptionsPage = () => {
   const fetchPageData = async () => {
     setLoading(true);
     try {
-      // Fetch existing prescriptions for this patient
       const presRes = await axios.get(`http://localhost:5000/api/prescriptions/patient/${patientId}`, { withCredentials: true });
       setPrescriptions(presRes.data.data);
 
-      // Fetch all available medications to populate the dropdown
       const medRes = await axios.get('http://localhost:5000/api/medications', { withCredentials: true });
       setMedications(medRes.data.data);
 
-      // Fetch current user to check their role
       const userRes = await axios.get('http://localhost:5000/api/auth/me', { withCredentials: true });
       setCurrentUser(userRes.data.data);
     } catch (err) {
@@ -49,8 +46,8 @@ const ManagePrescriptionsPage = () => {
         time: formData.time,
       }, { withCredentials: true });
 
-      setFormData({ medicationId: '', time: '' }); // Clear form
-      fetchPageData(); // Refresh the list
+      setFormData({ medicationId: '', time: '' }); 
+      fetchPageData(); 
     } catch (err) {
       setError(err.response?.data?.msg || 'Failed to create prescription.');
     }
@@ -64,7 +61,7 @@ const ManagePrescriptionsPage = () => {
       <h1>Manage Prescriptions for Patient</h1>
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      {/* Form to add new prescription - ONLY shown to doctors */}
+      {}
       {currentUser && currentUser.role === 'doctor' && (
         <form onSubmit={onSubmit} style={{ marginBottom: '20px', border: '1px solid #ccc', padding: '10px' }}>
           <h3>Add New Prescription</h3>
@@ -83,7 +80,7 @@ const ManagePrescriptionsPage = () => {
         </form>
       )}
 
-      {/* Table of existing prescriptions */}
+      {}
       <h2>Current Prescriptions</h2>
       {prescriptions.length === 0 ? (
         <p>This patient has no active prescriptions.</p>

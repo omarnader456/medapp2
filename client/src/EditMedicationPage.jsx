@@ -18,7 +18,6 @@ const EditMedicationPage = () => {
   useEffect(() => {
     const fetchMedication = async () => {
       try {
-        // To get the data for one medication, we can fetch all and find the one we need
         const res = await axios.get('http://localhost:5000/api/medications', { withCredentials: true });
         const medicationToEdit = res.data.data.find(med => med._id === id);
 
@@ -44,7 +43,7 @@ const EditMedicationPage = () => {
     try {
       await axios.put(`http://localhost:5000/api/medications/${id}`, formData, { withCredentials: true });
       alert('Medication updated successfully!');
-      navigate('/admin/medications'); // Go back to the list after updating
+      navigate('/admin/medications');
     } catch (err) {
       setError(err.response?.data?.msg || 'Failed to update medication.');
     }

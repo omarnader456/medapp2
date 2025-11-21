@@ -9,7 +9,6 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please add an email'],
     unique: true,
-    // This is a standard, robust regex for email validation
     match: [
       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
       'Please use a valid email',
@@ -24,13 +23,12 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please add a password'],
     minlength: 6,
-    select: false, // Do not return password by default
+    select: false, 
   },
   twoFactorEnabled: {
     type: Boolean,
     default: false,
   },
-  // We replace the TOTP secret with fields for an email-based code
   twoFactorCode: {
     type: String,
     select: false,

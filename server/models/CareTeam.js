@@ -5,7 +5,7 @@ const CareTeamSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: [true, 'A patient must be assigned.'],
-    unique: true, // Ensures a patient can only be in one active care team at a time
+    unique: true,
   },
   doctor: {
     type: mongoose.Schema.Types.ObjectId,
@@ -23,7 +23,6 @@ const CareTeamSchema = new mongoose.Schema({
   },
 });
 
-// Optional: Advanced validation to ensure the assigned users have the correct roles
 CareTeamSchema.pre('save', async function (next) {
   const User = mongoose.model('User');
 

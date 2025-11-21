@@ -11,7 +11,6 @@ const {
 const authMiddleware = require('../middleware/auth');
 const authorize = require('../middleware/authorize');
 
-// Define routes
 router
   .route('/')
   .get([authMiddleware, authorize('admin', 'doctor', 'nurse')], getAllMedications)

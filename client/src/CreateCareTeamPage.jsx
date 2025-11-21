@@ -29,7 +29,6 @@ const CreateCareTeamPage = () => {
 
   const { patientId, doctorId, nurseId } = formData;
 
-  // Filter users by role for the dropdowns
   const patients = users.filter(user => user.role === 'patient');
   const doctors = users.filter(user => user.role === 'doctor');
   const nurses = users.filter(user => user.role === 'nurse');
@@ -48,7 +47,7 @@ const CreateCareTeamPage = () => {
     try {
       await axios.post('http://localhost:5000/api/care-teams', formData, { withCredentials: true });
       setSuccess('Care team created successfully!');
-      setFormData({ patientId: '', doctorId: '', nurseId: '' }); // Clear form
+      setFormData({ patientId: '', doctorId: '', nurseId: '' }); 
     } catch (err) {
       setError(err.response?.data?.msg || 'Failed to create care team.');
     }

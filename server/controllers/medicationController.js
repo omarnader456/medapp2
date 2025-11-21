@@ -1,10 +1,6 @@
 const Medication = require('../models/Medication');
 
-/**
- * @desc    Get all medications
- * @route   GET /api/medications
- * @access  Private (Admin, Doctor, Nurse)
- */
+
 exports.getAllMedications = async (req, res) => {
   try {
     const medications = await Medication.find();
@@ -14,11 +10,7 @@ exports.getAllMedications = async (req, res) => {
   }
 };
 
-/**
- * @desc    Create a medication
- * @route   POST /api/medications
- * @access  Private (Admin only)
- */
+
 exports.createMedication = async (req, res) => {
   try {
     const medication = await Medication.create(req.body);
@@ -28,11 +20,7 @@ exports.createMedication = async (req, res) => {
   }
 };
 
-/**
- * @desc    Update a medication
- * @route   PUT /api/medications/:id
- * @access  Private (Admin only)
- */
+
 exports.updateMedication = async (req, res) => {
   try {
     const medication = await Medication.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
@@ -43,11 +31,7 @@ exports.updateMedication = async (req, res) => {
   }
 };
 
-/**
- * @desc    Delete a medication
- * @route   DELETE /api/medications/:id
- * @access  Private (Admin only)
- */
+
 exports.deleteMedication = async (req, res) => {
   try {
     const medication = await Medication.findById(req.params.id);

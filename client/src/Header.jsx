@@ -10,7 +10,6 @@ const Header = () => {
       await axios.get('http://localhost:5000/api/auth/logout', {
         withCredentials: true,
       });
-      // On successful logout, redirect to the login page
       navigate('/login');
     } catch (err) {
       console.error('Logout failed', err);
@@ -19,11 +18,11 @@ const Header = () => {
   };
 
   return (
-    <header style={{ padding: '10px', backgroundColor: '#f0f0f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      {/* Link to go back to the main dashboard */}
-      <Link to="/dashboard">Back to Dashboard</Link>
-      {/* Logout button */}
-      <button onClick={handleLogout}>Logout</button>
+    <header style={{ padding: '10px', backgroundColor: 'black', color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      {}
+      <Link to="/dashboard" style={{ color: 'white', textDecoration: 'none' }}>Back to Dashboard</Link>
+      {}
+      <button onClick={handleLogout} style={{ backgroundColor: '#333', color: 'white', border: '1px solid white', padding: '5px 10px', borderRadius: '5px' }}>Logout</button>
     </header>
   );
 };

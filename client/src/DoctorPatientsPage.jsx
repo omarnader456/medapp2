@@ -11,7 +11,6 @@ const DoctorPatientsPage = () => {
   useEffect(() => {
     const fetchPatients = async () => {
       try {
-        // Fetch both the current user and their patients
         const [userRes, patientsRes] = await Promise.all([
           axios.get('http://localhost:5000/api/auth/me', { withCredentials: true }),
           axios.get('http://localhost:5000/api/care-teams/my-patients', { withCredentials: true })
@@ -41,7 +40,7 @@ const DoctorPatientsPage = () => {
             <h3>{patient.name}</h3>
             <p>Email: {patient.email}</p>
             <Link to={`/prescriptions/${patient._id}`}>Manage Prescriptions</Link>
-            {/* Only show the diagnoses link if the user is a doctor */}
+            {}
             {currentUser && currentUser.role === 'doctor' && <span> | <Link to={`/diagnoses/${patient._id}`}>Manage Diagnoses</Link></span>}
           </div>
         ))

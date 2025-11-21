@@ -26,7 +26,6 @@ const DiagnosisSchema = new mongoose.Schema({
   },
 });
 
-// Pre-save hook to validate roles
 DiagnosisSchema.pre('save', async function (next) {
   const User = mongoose.model('User');
   const [patient, doctor] = await Promise.all([User.findById(this.patient), User.findById(this.doctor)]);

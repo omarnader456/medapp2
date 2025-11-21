@@ -10,11 +10,9 @@ const PatientDiagnosesPage = () => {
   useEffect(() => {
     const fetchDiagnoses = async () => {
       try {
-        // 1. First, get the current logged-in user
         const userRes = await axios.get('http://localhost:5000/api/auth/me', { withCredentials: true });
         const currentUser = userRes.data.data;
 
-        // 2. Then, use the user's ID to fetch their diagnoses
         const diagnosesRes = await axios.get(`http://localhost:5000/api/diagnoses/patient/${currentUser._id}`, { withCredentials: true });
         setDiagnoses(diagnosesRes.data.data);
       } catch (err) {

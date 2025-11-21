@@ -36,8 +36,8 @@ const AdminMedicationsPage = () => {
     setError('');
     try {
       await axios.post('http://localhost:5000/api/medications', formData, { withCredentials: true });
-      setFormData({ name: '', dosage: '', description: '', sideEffects: '' }); // Clear form
-      fetchMedications(); // Refresh the list
+      setFormData({ name: '', dosage: '', description: '', sideEffects: '' }); 
+      fetchMedications(); 
     } catch (err) {
       setError(err.response?.data?.msg || 'Failed to create medication.');
     }
@@ -47,7 +47,7 @@ const AdminMedicationsPage = () => {
     if (window.confirm('Are you sure you want to delete this medication?')) {
       try {
         await axios.delete(`http://localhost:5000/api/medications/${id}`, { withCredentials: true });
-        fetchMedications(); // Refresh the list
+        fetchMedications(); 
       } catch (err) {
         setError('Failed to delete medication.');
       }
@@ -62,7 +62,7 @@ const AdminMedicationsPage = () => {
       <h1>Manage Medications</h1>
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      {/* Form to add new medication */}
+      {}
       <form onSubmit={onSubmit} style={{ marginBottom: '20px', border: '1px solid #ccc', padding: '10px' }}>
         <h3>Add New Medication</h3>
         <input name="name" value={formData.name} onChange={onChange} placeholder="Name" required />
@@ -72,7 +72,7 @@ const AdminMedicationsPage = () => {
         <button type="submit">Add Medication</button>
       </form>
 
-      {/* Table of existing medications */}
+      {}
       <table border="1" style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr>

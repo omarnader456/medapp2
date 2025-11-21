@@ -58,7 +58,7 @@ const UpdateProfilePage = () => {
     try {
       await axios.put('http://localhost:5000/api/auth/updatepassword', passwordData, { withCredentials: true });
       alert('Password updated successfully!');
-      setPasswordData({ currentPassword: '', newPassword: '', confirmNewPassword: '' }); // Clear fields
+      setPasswordData({ currentPassword: '', newPassword: '', confirmNewPassword: '' }); 
     } catch (err) {
       setPasswordError(err.response?.data?.msg || 'Failed to update password.');
     }

@@ -13,11 +13,9 @@ const EditAssignmentPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch all users to populate dropdowns
         const usersRes = await axios.get('http://localhost:5000/api/users', { withCredentials: true });
         setAllUsers(usersRes.data.data);
 
-        // Fetch the specific assignment to pre-fill the form
         const assignmentRes = await axios.get('http://localhost:5000/api/care-teams', { withCredentials: true });
         const currentAssignment = assignmentRes.data.data.find(a => a._id === id);
         if (currentAssignment) {
