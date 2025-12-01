@@ -31,6 +31,20 @@ exports.createPrescription = async (req, res) => {
 
 exports.getPrescriptionsForPatient = async (req, res) => {
   try {
+
+    if (req.user.role === 'patient' && req.user.id !== req.params.patientId) {
+        return res.status(403).json({ msg: 'Access denied. You can only view your own records.' });
+    }
+    if (req.user.role === 'doctor' || req.user.role === 'nurse') {
+        const isAssigned = await CareTeam.findOne({ 
+            patient: req.params.patientId, 
+            [req.user.role]: req.user.id // Dynamic key: checks 'doctor': id or 'nurse': id
+        });
+        
+        if (!isAssigned && req.user.role !== 'admin') {
+             return res.status(403).json({ msg: 'Access denied. You are not assigned to this patient.' });
+        }
+    }
     const prescriptions = await Prescription.find({ patient: req.params.patientId })
       .populate('patient', 'name email')
       .populate('medication', 'name dosage'); 

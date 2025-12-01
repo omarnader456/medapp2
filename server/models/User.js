@@ -41,6 +41,31 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  loginAttempts: { type: Number, default: 0 },
+  lockUntil: { type: Date },
+  
+  passwordChangedAt: { type: Date }
 });
+
+UserSchema.methods.incrementLoginAttempts = async function() {
+  if (this.lockUntil && this.lockUntil < Date.now()) {
+    return this.updateOne({
+      $set: { loginAttempts: 1 },
+      $unset: { lockUntil: 1 }
+    });
+  }
+  const updates = { $inc: { loginAttempts: 1 } };
+  if (this.loginAttempts + 1 >= 5 && !this.isLocked) {
+    updates.$set = { lockUntil: Date.now() + 30 * 60 * 1000 }; 
+  }
+  return this.updateOne(updates);
+};
+
+UserSchema.methods.resetLoginAttempts = function() {
+  return this.updateOne({
+    $set: { loginAttempts: 0 },
+    $unset: { lockUntil: 1 }
+  });
+};
 
 module.exports = mongoose.model('User', UserSchema);

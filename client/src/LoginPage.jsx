@@ -26,8 +26,14 @@ const LoginPage = () => {
         { withCredentials: true } 
       );
 
+      // FIX: Ensure we extract the token correctly if 2FA is required
       if (res.data.require2fa) {
-        navigate('/verify-2fa', { state: { userId: res.data.userId } });
+        // We need to pass the temporary 2FA token to the next page
+        navigate('/verify-2fa', { 
+            state: { 
+                twoFactorToken: res.data.twoFactorToken 
+            } 
+        });
       } else {
         navigate('/dashboard');
       }

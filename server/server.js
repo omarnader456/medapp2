@@ -28,12 +28,32 @@ app.use(cors({
   credentials: true
 }));
 
-app.use(helmet());
+const hpp = require('hpp'); 
+
 
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000, 
-  max: 1000 
+  max: 100, 
+  message: 'Too many requests, please try again later.',
+  standardHeaders: true,
+  legacyHeaders: false,
 });
+
+app.use(hpp()); 
+
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'"], 
+      objectSrc: ["'none'"],
+      upgradeInsecureRequests: [],
+    },
+  },
+}));
+
+
+
 app.use('/api', limiter);
 
 app.use(express.json({ limit: '10kb' }));
@@ -42,8 +62,19 @@ app.use(cookieParser());
 app.use(mongoSanitize());
 app.use(xss());
 
+
+const { authLimiter } = require('./middleware/security');
+const authRoutes = require('./routes/auth'); 
+
+
+
+app.use('/api/auth', authLimiter);
+
+app.use('/api/auth', authRoutes);
+
+
+
 app.get('/', (req, res) => res.send('API is running...'));
-app.use('/api/auth', require('./routes/auth'));
 app.use('/api/users', require('./routes/user'));
 app.use('/api/care-teams', require('./routes/careTeam'));
 app.use('/api/medications', require('./routes/medication'));

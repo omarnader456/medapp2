@@ -8,20 +8,24 @@ const TwoFactorAuthPage = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
-  const { userId } = location.state || {}; 
+  
+  // FIX: Destructure twoFactorToken from state
+  const { twoFactorToken } = location.state || {}; 
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (!userId) {
-      setError('No user ID found. Please try logging in again.');
+    
+    if (!twoFactorToken) {
+      setError('Session expired or invalid. Please login again.');
       return;
     }
+    
     setError('');
 
     try {
       await axios.post(
         'http://localhost:5000/api/auth/verify-2fa',
-        { userId, token },
+        { twoFactorToken, token }, // Send the temp token + user code
         { withCredentials: true }
       );
       navigate('/dashboard');
@@ -33,7 +37,7 @@ const TwoFactorAuthPage = () => {
   return (
     <div className="two-fa-page-container">
       <h1 className="two-fa-title">Enter 2FA Code</h1>
-      <p className="two-fa-subtitle">Enter the code from your authenticator app.</p>
+      <p className="two-fa-subtitle">Enter the code sent to your email.</p>
       {error && <p className="two-fa-error-message" style={{ color: 'red' }}>{error}</p>}
       <form className="two-fa-form" onSubmit={onSubmit}>
         <div id="2fa-input-group">

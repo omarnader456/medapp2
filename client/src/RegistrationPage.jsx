@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from './Header.jsx'; 
 
 const RegistrationPage = () => {
+  // Ensure default is 'patient'
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -23,6 +24,13 @@ const RegistrationPage = () => {
     e.preventDefault();
     setError('');
     setSuccess('');
+    if (!role) {
+        setError('Please select a valid role.');
+        return;
+    }
+
+    // Debug log to check what is being sent
+    console.log("Submitting registration with:", formData);
 
     try {
       await axios.post(
@@ -34,6 +42,10 @@ const RegistrationPage = () => {
       setSuccess(`Successfully created user: ${name} (${role})`);
       setFormData({ name: '', email: '', password: '', role: '' });
     } catch (err) {
+      if (err.response?.status === 429) {
+        setError('Too many attempts. Please wait a moment.');
+        return;
+      }
       const errorMsg = err.response?.data?.errors?.[0]?.msg || err.response?.data?.msg || 'Registration failed.';
       setError(errorMsg);
     }
@@ -43,9 +55,7 @@ const RegistrationPage = () => {
     <div>
       <Header />
       <h1>Create a New User Account</h1>
-      <p>This page is for administrators to create new accounts.</p>
-
-      {}
+      
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {success && <p style={{ color: 'green' }}>{success}</p>}
 

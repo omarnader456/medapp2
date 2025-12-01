@@ -6,7 +6,6 @@ const authController = require('../controllers/authController');
 const authMiddleware = require('../middleware/auth');
 const authorize = require('../middleware/authorize');
 
-
 router.post(
   '/register',
   authMiddleware,
@@ -19,8 +18,6 @@ router.post(
   authController.register
 );
 
-
-
 router.post(
   '/login',
   [
@@ -30,25 +27,14 @@ router.post(
   authController.login
 );
 
-
 router.post('/verify-2fa', authController.verifyTwoFactor);
-
-
-router.post(
-  '/enable-2fa',
-  authMiddleware,
-  authController.enableTwoFactor
-);
-
+router.post('/enable-2fa', authMiddleware, authController.enableTwoFactor);
 router.get('/logout', authController.logout);
-
-
 router.get('/me', authMiddleware, authController.getMe);
-
-
 router.put('/updatedetails', authMiddleware, authController.updateMyDetails);
-
-
 router.put('/updatepassword', authMiddleware, authController.updatePassword);
+
+// FIXED: Added missing refresh token route
+router.get('/refresh-token', authController.refreshToken);
 
 module.exports = router;
