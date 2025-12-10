@@ -6,57 +6,84 @@ import Header from './Header.jsx';
 const AdminEditUserPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ name: '', email: '', role: '' });
+  
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [role, setRole] = useState('');
+  
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
-    const fetchUser = async () => {
+    const getUser = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/users/${id}`, { withCredentials: true });
-        setFormData(res.data.data);
+        const res = await axios.get(`https://localhost:5000/api/users/${id}`, { withCredentials: true });
+        const data = res.data.data;
+        setName(data.name);
+        setEmail(data.email);
+        setRole(data.role);
+        setLoading(false);
       } catch (err) {
-        setError('Failed to fetch user data.');
-      } finally {
+        setErrorMsg('Failed to fetch user data.');
         setLoading(false);
       }
     };
-    fetchUser();
+    getUser();
   }, [id]);
 
-  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
-
-  const onSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setErrorMsg('');
+    
+    const body = {
+        name: name,
+        email: email,
+        role: role
+    };
+
     try {
-      await axios.put(`http://localhost:5000/api/users/${id}`, formData, { withCredentials: true });
+      await axios.put(`https://localhost:5000/api/users/${id}`, body, { withCredentials: true });
       alert('User updated successfully!');
       navigate('/admin/users');
     } catch (err) {
-      setError(err.response?.data?.msg || 'Failed to update user.');
+      if (err.response && err.response.data) {
+          setErrorMsg(err.response.data.msg);
+      } else {
+          setErrorMsg('Failed to update user.');
+      }
     }
   };
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <p style={{ color: 'red' }}>{error}</p>;
 
   return (
     <div>
       <Header />
       <h1>Edit User Profile</h1>
-      <form onSubmit={onSubmit}>
+      
+      {errorMsg && <p style={{ color: 'red' }}>{errorMsg}</p>}
+      
+      <form onSubmit={handleSubmit}>
         <div>
           <label>Name: </label>
-          <input name="name" value={formData.name} onChange={onChange} required />
+          <input 
+            value={name} 
+            onChange={(e) => setName(e.target.value)} 
+            required 
+          />
         </div>
         <div>
           <label>Email: </label>
-          <input name="email" type="email" value={formData.email} onChange={onChange} required />
+          <input 
+            type="email" 
+            value={email} 
+            onChange={(e) => setEmail(e.target.value)} 
+            required 
+          />
         </div>
         <div>
           <label>Role: </label>
-          <select name="role" value={formData.role} onChange={onChange}>
+          <select value={role} onChange={(e) => setRole(e.target.value)}>
             <option value="patient">Patient</option>
             <option value="doctor">Doctor</option>
             <option value="nurse">Nurse</option>

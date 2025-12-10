@@ -5,29 +5,29 @@ import axios from 'axios';
 import './index.css';
 import App from './App.jsx';
 
-// GLOBAL AXIOS INTERCEPTOR FOR SILENT REFRESH
 axios.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    return response;
+  },
   async (error) => {
     const originalRequest = error.config;
     
-    // If error is 401 and we haven't retried yet
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (error.response && error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
+      
       try {
-        // Attempt to refresh the token (cookies are handled automatically)
-        await axios.get('http://localhost:5000/api/auth/refresh-token', { 
+        await axios.get('https://localhost:5000/api/auth/refresh-token', { 
           withCredentials: true 
         });
         
-        // Retry original request
         return axios(originalRequest);
       } catch (err) {
-        // Refresh failed (e.g. refresh token expired) -> Force Logout
+        console.log("Session expired.");
         window.location.href = '/login';
         return Promise.reject(err);
       }
     }
+    
     return Promise.reject(error);
   }
 );

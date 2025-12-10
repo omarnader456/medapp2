@@ -2,14 +2,15 @@
   "name": "medical-app-server",
   "version": "1.0.0",
   "description": "Server for the medical application",
-  "main": "server/server.js",
+  "main": "server/app.js",
   "scripts": {
-    "start": "node server/server.js",
-    "server": "nodemon server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/app.js",
+    "server": "nodemon server/app.js",
     "client": "npm run dev --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "seed": "node server/utils/seeder -i",
-    "seed:destroy": "node server/utils/seeder -d"
+    "seed": "node server/helpers/seeder -i",
+    "seed:destroy": "node server/helpers/seeder -d"
   },
   "dependencies": {
     "axios": "^1.13.2",
