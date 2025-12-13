@@ -1,29 +1,41 @@
 const nodemailer = require('nodemailer');
 
-const sendEmail = async function(options) {
-  // Create transporter
-  const transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASSWORD,
-    },
-    tls: {
-      rejectUnauthorized: false,
-    },
-  });
+const mailer = async (options) => {
+  try {
+    const testAccount = await nodemailer.createTestAccount();
 
-  // Email options
-  const mailOptions = {
-    from: 'MyMedicalApp <noreply@medical.app>', 
-    to: options.email,
-    subject: options.subject,
-    text: options.message,
-  };
+    const transporter = nodemailer.createTransport({
+      host: "smtp.ethereal.email",
+      port: 587,
+      secure: false, 
+      auth: {
+        user: testAccount.user, 
+        pass: testAccount.pass, 
+      },
+      // FIX: Add this block to ignore certificate errors
+      tls: {
+        rejectUnauthorized: false
+      }
+    });
 
-  // Send the email
-  await transporter.sendMail(mailOptions);
+    const message = {
+      from: '"Medical App Security" <no-reply@healthcure.com>',
+      to: options.email,
+      subject: options.subject,
+      text: options.message, 
+    };
+
+    const info = await transporter.sendMail(message);
+
+    console.log("\n==================================================");
+    console.log("📧 EMAIL SENT (SANDBOX MODE)");
+    console.log(`To: ${options.email}`);
+    console.log(`Preview URL: ${nodemailer.getTestMessageUrl(info)}`);
+    console.log("==================================================\n");
+
+  } catch (err) {
+    console.log("Email Error:", err);
+  }
 };
 
-module.exports = sendEmail;
+module.exports = mailer;

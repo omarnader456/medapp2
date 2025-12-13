@@ -15,5 +15,4 @@ router.get('/me', check, act.getMe);
 router.put('/updatedetails', check, act.updateInfo);
 router.put('/updatepassword', check, act.updatePass);
 router.get('/refresh-token', act.doRefresh);
-
 module.exports = router;

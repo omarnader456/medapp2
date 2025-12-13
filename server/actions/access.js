@@ -57,7 +57,7 @@ const doLogin = async (req, res) => {
     await u.resetAttempts();
 
     // 2FA check
-    if (!u.twoFactorEnabled) {
+    if (u.twoFactorEnabled) {
       const code = Math.floor(100000 + Math.random() * 900000).toString();
       const s = await bcrypt.genSalt(10);
       u.twoFactorCode = await bcrypt.hash(code, s);
