@@ -16,7 +16,7 @@ axios.interceptors.response.use(
       originalRequest._retry = true;
       
       try {
-        await axios.get('https://localhost:5000/api/auth/refresh-token', { 
+        await axios.get('https://127.0.0.1:5000/api/auth/refresh-token', { 
           withCredentials: true 
         });
         

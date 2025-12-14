@@ -15,7 +15,7 @@ const VerifyCode = () => {
     if (!tok) { setErr('Expired'); return; }
     
     try {
-      await axios.post('https://localhost:5000/api/auth/verify-2fa', { twoFactorToken: tok, token: c }, { withCredentials: true });
+      await axios.post('https://127.0.0.1:5000/api/auth/verify-2fa', { twoFactorToken: tok, token: c }, { withCredentials: true });
       nav('/dashboard');
     } catch (e) {
       setErr('Wrong code');

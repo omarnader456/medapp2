@@ -10,7 +10,7 @@ const AdminRoute = () => {
   useEffect(() => {
     const check = async () => {
       try {
-        const res = await axios.get('https://localhost:5000/api/auth/me', {
+        const res = await axios.get('https://127.0.0.1:5000/api/auth/me', {
           withCredentials: true,
         });
 

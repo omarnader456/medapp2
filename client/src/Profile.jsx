@@ -13,7 +13,7 @@ const Profile = () => {
 
   useEffect(() => {
     // Fetch profile and 2FA status
-    axios.get('https://localhost:5000/api/auth/me', { withCredentials: true })
+    axios.get('https://127.0.0.1:5000/api/auth/me', { withCredentials: true })
       .then(r => {
         setN(r.data.data.name);
         setE(r.data.data.email);
@@ -24,20 +24,20 @@ const Profile = () => {
 
   const saveInfo = (ev) => {
     ev.preventDefault();
-    axios.put('https://localhost:5000/api/auth/updatedetails', { name: n, email: e }, { withCredentials: true })
+    axios.put('https://127.0.0.1:5000/api/auth/updatedetails', { name: n, email: e }, { withCredentials: true })
       .then(() => { alert('Updated'); nav('/dashboard'); });
   };
 
   const savePass = (ev) => {
     ev.preventDefault();
-    axios.put('https://localhost:5000/api/auth/updatepassword', { currentPassword: oldP, newPassword: newP }, { withCredentials: true })
+    axios.put('https://127.0.0.1:5000/api/auth/updatepassword', { currentPassword: oldP, newPassword: newP }, { withCredentials: true })
       .then(() => { setOldP(''); setNewP(''); alert('Password Changed'); })
       .catch(() => alert('Failed'));
   };
 
   // Logic to toggle 2FA
   const toggle2FA = () => {
-    axios.post('https://localhost:5000/api/auth/enable-2fa', {}, { withCredentials: true })
+    axios.post('https://127.0.0.1:5000/api/auth/enable-2fa', {}, { withCredentials: true })
       .then(r => {
         setIs2FA(r.data.status);
         alert(r.data.status ? '2FA is now ON' : '2FA is now OFF');

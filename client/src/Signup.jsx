@@ -20,7 +20,7 @@ const Signup = () => {
 
     try {
       const data = { name, email, password, role };
-      await axios.post('https://localhost:5000/api/auth/register', data, { withCredentials: true });
+      await axios.post('https://127.0.0.1:5000/api/auth/register', data, { withCredentials: true });
       setMsg(`Made user: ${name}`);
       setName(''); setEmail(''); setPassword('');
     } catch (e) {

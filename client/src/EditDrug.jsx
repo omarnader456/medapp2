@@ -16,7 +16,7 @@ const EditMedicationPage = () => {
   const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
-    axios.get('https://localhost:5000/api/medications', { withCredentials: true })
+    axios.get('https://127.0.0.1:5000/api/medications', { withCredentials: true })
       .then(res => {
         const found = res.data.data.find(m => m._id === id);
         if (found) {
@@ -47,7 +47,7 @@ const EditMedicationPage = () => {
     };
 
     try {
-      await axios.put(`https://localhost:5000/api/medications/${id}`, body, { withCredentials: true });
+      await axios.put(`https://127.0.0.1:5000/api/medications/${id}`, body, { withCredentials: true });
       alert('Updated successfully!');
       navigate('/admin/medications');
     } catch (err) {

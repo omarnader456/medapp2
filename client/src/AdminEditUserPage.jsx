@@ -17,7 +17,7 @@ const AdminEditUserPage = () => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await axios.get(`https://localhost:5000/api/users/${id}`, { withCredentials: true });
+        const res = await axios.get(`https://127.0.0.1:5000/api/users/${id}`, { withCredentials: true });
         const data = res.data.data;
         setName(data.name);
         setEmail(data.email);
@@ -42,7 +42,7 @@ const AdminEditUserPage = () => {
     };
 
     try {
-      await axios.put(`https://localhost:5000/api/users/${id}`, body, { withCredentials: true });
+      await axios.put(`https://127.0.0.1:5000/api/users/${id}`, body, { withCredentials: true });
       alert('User updated successfully!');
       navigate('/admin/users');
     } catch (err) {

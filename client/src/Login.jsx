@@ -14,7 +14,7 @@ const Login = () => {
     setTxt('');
     
     try {
-      const res = await axios.post('https://localhost:5000/api/auth/login', { email: mail, password: pass }, { withCredentials: true });
+      const res = await axios.post('https://127.0.0.1:5000/api/auth/login', { email: mail, password: pass }, { withCredentials: true });
 
       if (res.data.need2fa) {
         nav('/verify-2fa', { state: { token: res.data.tmpToken } });

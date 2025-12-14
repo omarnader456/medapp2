@@ -20,5 +20,6 @@ export default defineConfig({
     },
     // Ensure it runs on the port we expect
     port: 5173,
+    host: '127.0.0.1',
   }
 })

@@ -8,8 +8,8 @@ const MyPatients = () => {
   const [me, setMe] = useState(null);
 
   useEffect(() => {
-    axios.get('https://localhost:5000/api/auth/me', { withCredentials: true }).then(r => setMe(r.data.data));
-    axios.get('https://localhost:5000/api/care-teams/my-patients', { withCredentials: true }).then(r => setList(r.data.data));
+    axios.get('https://127.0.0.1:5000/api/auth/me', { withCredentials: true }).then(r => setMe(r.data.data));
+    axios.get('https://127.0.0.1:5000/api/care-teams/my-patients', { withCredentials: true }).then(r => setList(r.data.data));
   }, []);
 
   return (

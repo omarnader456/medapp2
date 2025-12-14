@@ -11,7 +11,7 @@ const DrugList = () => {
   const [se, setSe] = useState(''); 
 
   const get = () => {
-    axios.get('https://localhost:5000/api/medications', { withCredentials: true })
+    axios.get('https://127.0.0.1:5000/api/medications', { withCredentials: true })
       .then(r => setList(r.data.data));
   };
 
@@ -19,7 +19,7 @@ const DrugList = () => {
 
   const add = (e) => {
     e.preventDefault();
-    axios.post('https://localhost:5000/api/medications', { name: n, dosage: d, description: desc, sideEffects: se }, { withCredentials: true })
+    axios.post('https://127.0.0.1:5000/api/medications', { name: n, dosage: d, description: desc, sideEffects: se }, { withCredentials: true })
       .then(() => {
           setN(''); setD(''); setDesc(''); setSe('');
           get();
@@ -28,7 +28,7 @@ const DrugList = () => {
 
   const del = (id) => {
     if(window.confirm('Sure?')) {
-        axios.delete(`https://localhost:5000/api/medications/${id}`, { withCredentials: true })
+        axios.delete(`https://127.0.0.1:5000/api/medications/${id}`, { withCredentials: true })
         .then(get);
     }
   };

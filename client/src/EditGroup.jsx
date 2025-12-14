@@ -16,10 +16,10 @@ const EditAssignmentPage = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const userRes = await axios.get('https://localhost:5000/api/users', { withCredentials: true });
+        const userRes = await axios.get('https://127.0.0.1:5000/api/users', { withCredentials: true });
         setUsers(userRes.data.data);
 
-        const teamRes = await axios.get('https://localhost:5000/api/care-teams', { withCredentials: true });
+        const teamRes = await axios.get('https://127.0.0.1:5000/api/care-teams', { withCredentials: true });
         const list = teamRes.data.data;
         
         const found = list.find(item => item._id === id);
@@ -47,7 +47,7 @@ const EditAssignmentPage = () => {
           doctor: docId,
           nurse: nurseId
       };
-      await axios.put(`https://localhost:5000/api/care-teams/${id}`, body, { withCredentials: true });
+      await axios.put(`https://127.0.0.1:5000/api/care-teams/${id}`, body, { withCredentials: true });
       alert('Saved!');
       navigate('/admin/assignments');
     } catch (err) {
@@ -58,7 +58,7 @@ const EditAssignmentPage = () => {
   const handleDelete = async () => {
     if (window.confirm('Delete this assignment?')) {
       try {
-        await axios.delete(`https://localhost:5000/api/care-teams/${id}`, { withCredentials: true });
+        await axios.delete(`https://127.0.0.1:5000/api/care-teams/${id}`, { withCredentials: true });
         navigate('/admin/assignments');
       } catch (err) {
         alert('Error deleting.');

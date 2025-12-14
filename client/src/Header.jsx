@@ -6,7 +6,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    axios.get('https://localhost:5000/api/auth/logout', { withCredentials: true })
+    axios.get('https://127.0.0.1:5000/api/auth/logout', { withCredentials: true })
       .then(() => {
         navigate('/login');
       })

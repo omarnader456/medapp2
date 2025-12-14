@@ -7,7 +7,7 @@ const GroupList = () => {
   const [list, setList] = useState([]);
   
   useEffect(() => {
-    axios.get('https://localhost:5000/api/care-teams', { withCredentials: true })
+    axios.get('https://127.0.0.1:5000/api/care-teams', { withCredentials: true })
       .then(r => setList(r.data.data))
       .catch(e => console.log('Err'));
   }, []);

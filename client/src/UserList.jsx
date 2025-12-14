@@ -8,7 +8,7 @@ const UserList = () => {
   const [load, setLoad] = useState(true);
 
   useEffect(() => {
-    axios.get('https://localhost:5000/api/users', { withCredentials: true })
+    axios.get('https://127.0.0.1:5000/api/users', { withCredentials: true })
       .then(res => {
         setList(res.data.data);
         setLoad(false);

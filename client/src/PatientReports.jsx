@@ -11,23 +11,23 @@ const PatientReports = () => {
   const [me, setMe] = useState(null);
 
   const get = () => {
-    axios.get(`https://localhost:5000/api/diagnoses/patient/${patientId}`, { withCredentials: true }).then(r => setList(r.data.data));
+    axios.get(`https://127.0.0.1:5000/api/diagnoses/patient/${patientId}`, { withCredentials: true }).then(r => setList(r.data.data));
   };
 
   useEffect(() => {
     get();
-    axios.get('https://localhost:5000/api/auth/me', { withCredentials: true }).then(r => setMe(r.data.data));
+    axios.get('https://127.0.0.1:5000/api/auth/me', { withCredentials: true }).then(r => setMe(r.data.data));
   }, [patientId]);
 
   const add = (e) => {
     e.preventDefault();
-    axios.post('https://localhost:5000/api/diagnoses', { patientId, title: tit, description: desc }, { withCredentials: true })
+    axios.post('https://127.0.0.1:5000/api/diagnoses', { patientId, title: tit, description: desc }, { withCredentials: true })
       .then(() => { setTit(''); setDesc(''); get(); });
   };
 
   const del = (id) => {
     if(window.confirm('Del?')) {
-        axios.delete(`https://localhost:5000/api/diagnoses/${id}`, { withCredentials: true }).then(get);
+        axios.delete(`https://127.0.0.1:5000/api/diagnoses/${id}`, { withCredentials: true }).then(get);
     }
   };
 

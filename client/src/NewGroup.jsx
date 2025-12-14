@@ -10,7 +10,7 @@ const NewGroup = () => {
   const [msg, setMsg] = useState('');
 
   useEffect(() => {
-    axios.get('https://localhost:5000/api/users', { withCredentials: true })
+    axios.get('https://127.0.0.1:5000/api/users', { withCredentials: true })
       .then(r => setUsers(r.data.data));
   }, []);
 
@@ -23,7 +23,7 @@ const NewGroup = () => {
     if (!pat || !doc || !nur) { setMsg('Select all'); return; }
     
     try {
-      await axios.post('https://localhost:5000/api/care-teams', { patientId: pat, doctorId: doc, nurseId: nur }, { withCredentials: true });
+      await axios.post('https://127.0.0.1:5000/api/care-teams', { patientId: pat, doctorId: doc, nurseId: nur }, { withCredentials: true });
       setMsg('Done');
       setPat(''); setDoc(''); setNur('');
     } catch (e) { setMsg('Fail'); }

@@ -7,7 +7,7 @@ const MyAssignmentsPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('https://localhost:5000/api/care-teams/my-assignments', { withCredentials: true })
+    axios.get('https://127.0.0.1:5000/api/care-teams/my-assignments', { withCredentials: true })
       .then((res) => {
         setList(res.data.data);
         setLoading(false);

@@ -12,18 +12,18 @@ const PatientScripts = () => {
   const [me, setMe] = useState(null);
 
   const refresh = () => {
-    axios.get(`https://localhost:5000/api/prescriptions/patient/${patientId}`, { withCredentials: true }).then(r => setList(r.data.data));
+    axios.get(`https://127.0.0.1:5000/api/prescriptions/patient/${patientId}`, { withCredentials: true }).then(r => setList(r.data.data));
   };
 
   useEffect(() => {
     refresh();
-    axios.get('https://localhost:5000/api/medications', { withCredentials: true }).then(r => setDrugs(r.data.data));
-    axios.get('https://localhost:5000/api/auth/me', { withCredentials: true }).then(r => setMe(r.data.data));
+    axios.get('https://127.0.0.1:5000/api/medications', { withCredentials: true }).then(r => setDrugs(r.data.data));
+    axios.get('https://127.0.0.1:5000/api/auth/me', { withCredentials: true }).then(r => setMe(r.data.data));
   }, [patientId]);
 
   const add = (e) => {
     e.preventDefault();
-    axios.post('https://localhost:5000/api/prescriptions', { patientId, medicationId: sel, time }, { withCredentials: true })
+    axios.post('https://127.0.0.1:5000/api/prescriptions', { patientId, medicationId: sel, time }, { withCredentials: true })
       .then(() => { setSel(''); setTime(''); refresh(); });
   };
 

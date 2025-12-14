@@ -10,7 +10,7 @@ const DashboardPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('https://localhost:5000/api/auth/me', { withCredentials: true })
+    axios.get('https://127.0.0.1:5000/api/auth/me', { withCredentials: true })
       .then(res => {
         setUser(res.data.data);
         setIsLoading(false);

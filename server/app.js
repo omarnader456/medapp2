@@ -36,7 +36,7 @@ app.use((req, res, next) => {
 
 // Cors
 app.use(cors({
-  origin: ['https://localhost:5173', 'http://localhost:5173', 'http://localhost:3000'], 
+  origin: ['https://localhost:5173', 'http://localhost:5173', 'http://localhost:3000','https://127.0.0.1:5173','https://127.0.0.1:3000'], 
   credentials: true
 }));
 
@@ -47,7 +47,8 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      connectSrc: ["'self'", "https://localhost:5000", "http://localhost:5000"], 
+      connectSrc: ["'self'", "https://localhost:5000", "http://localhost:5000","https://127.0.0.1:5000",
+        "wss://127.0.0.1:5173"], 
       scriptSrc: isProd ? ["'self'"] : ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
       styleSrc: isProd ? ["'self'"] : ["'self'", "'unsafe-inline'"],
       imgSrc: ["'self'", "data:", "blob:"],

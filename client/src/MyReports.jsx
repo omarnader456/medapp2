@@ -10,10 +10,10 @@ const PatientDiagnosesPage = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const userRes = await axios.get('https://localhost:5000/api/auth/me', { withCredentials: true });
+        const userRes = await axios.get('https://127.0.0.1:5000/api/auth/me', { withCredentials: true });
         const user = userRes.data.data;
 
-        const diagRes = await axios.get(`https://localhost:5000/api/diagnoses/patient/${user._id}`, { withCredentials: true });
+        const diagRes = await axios.get(`https://127.0.0.1:5000/api/diagnoses/patient/${user._id}`, { withCredentials: true });
         setDiagnoses(diagRes.data.data);
         
       } catch (err) {
